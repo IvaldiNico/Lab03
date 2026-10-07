@@ -106,3 +106,4 @@ class DepositoStrumenti:
         else:
             raise Exception("prestito non trovato")
 
+
