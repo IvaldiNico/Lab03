@@ -1,6 +1,5 @@
-import csv
+ import csv
 from operator import attrgetter
-
 
 class Strumenti:
     def __init__(self, id_strumento, tipo, marca, anno_acquisto, valore):
@@ -47,9 +46,9 @@ class DepositoStrumenti:
                     marca = line[2]
                     anno_acquisto= line[3]
                     valore = line[4]
-                    nuovo_Strumento = Strumenti(id_strumento,tipo,marca,anno_acquisto,valore)
+                    nuovo_strumento = Strumenti(id_strumento,tipo,marca,anno_acquisto,valore)
 
-                    self.strumenti[nuovo_Strumento] = nuovo_Strumento
+                    self.strumenti[id_strumento] = nuovo_strumento
 
         except FileNotFoundError:
             print(f"File {file_path} non trovato")
@@ -62,20 +61,47 @@ class DepositoStrumenti:
 
         self.strumenti[id_strumento] = strumento_tastiera
 
-        return self.strumenti[id_strumento]
+        return strumento_tastiera
 
-        #TODO
 
     def strumenti_ordinati_per_marca(self):
         """Ordina gli strumenti per marca in ordine alfabetico"""
+        @property
+        def marca(self):
+            return self.__marca
+
+        @marca.setter
+        def marca(self, marca):
+            self.__marca = marca
+
         ordinati = sorted(self.strumenti.values(), key=attrgetter("marca"))
         return ordinati
-        # TODO
+    #TODO
 
     def nuovo_prestito(self, data, id_strumento, cognome_allievo):
         """Crea un nuovo prestito"""
+        if id_strumento not in self.strumenti:
+            raise Exception("non trovato")
+
+        id_prestito = "P" + str(len(self.prestiti) + 1)
+
+        if id_strumento not in self.prestiti:
+
+            nuovo_prestito = Prestiti(id_prestito, data, id_strumento, cognome_allievo)
+            self.prestiti[id_prestito] = nuovo_prestito
+            return nuovo_prestito
+
+        else:
+            raise Exception("strumento già in prestito")
+
+
+
         # TODO
 
     def termina_prestito(self, id_prestito):
         """Termina un prestito in atto"""
-        # TODO
+        if id_prestito in self.prestiti:
+            self.prestiti.pop(id_prestito)
+        else:
+            raise Exception("prestito non trovato")
+
