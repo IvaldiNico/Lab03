@@ -96,7 +96,7 @@ class DepositoStrumenti:
         nuovo_prestito = Prestiti(id_prestito, data, id_strumento, cognome_allievo)
         self.prestiti[id_prestito] = nuovo_prestito
 
-        return nuovo_prestito
+        return id_prestito
 
 
     def termina_prestito(self, id_prestito):
