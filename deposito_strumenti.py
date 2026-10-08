@@ -86,10 +86,11 @@ class DepositoStrumenti:
     def nuovo_prestito(self, data, id_strumento, cognome_allievo):
         """Crea un nuovo prestito"""
         if id_strumento not in self.strumenti:
-            raise Exception("non trovato")
+            raise Exception("strumento non trovato")
 
-        for prestito_attivo in self.prestiti.values():
-            if prestito_attivo.id_strumento == id_strumento:
+        for prestito_attivo in self.prestiti.values():   #scorre i valori del dizionario prestiti
+            if prestito_attivo.id_strumento == id_strumento:   # da il codice strumento del prestito
+                                                               # e verifica che non sia già prestato
                 raise Exception("strumento già in prestito.")
 
         id_prestito = "P" + str(len(self.prestiti) + 1)
