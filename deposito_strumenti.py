@@ -40,18 +40,11 @@ class Prestiti:  # Classe per definire il prestito di uno strumento
 class DepositoStrumenti:
     def __init__(self, nome, responsabile):
         """Inizializza gli attributi e le strutture dati"""
-        self.__nome = nome
-        self.__responsabile = responsabile
+        self.nome = nome
+        self.responsabile = responsabile
         self.strumenti = {}   # Inizializzazione dei dizionari per memorizzare strumenti e prestiti
         self.prestiti = {}
 
-        @property
-        def responsabile(self):
-            return self.__responsabile
-
-        @responsabile.setter
-        def responsabile(self, responsabile):
-            self.__responsabile = responsabile
 
     def carica_file_strumenti(self, file_path):
         """Carica gli strumenti dal file"""
@@ -70,7 +63,7 @@ class DepositoStrumenti:
                     self.strumenti[id_strumento] = nuovo_strumento
 
         except FileNotFoundError:
-            print(f"File {file_path} non trovato")
+            raise FileNotFoundError(f"File {file_path} non trovato")
 
 
     def aggiungi_strumento(self, tipo, marca, anno_acquisto, valore):
